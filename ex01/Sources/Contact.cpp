@@ -1,9 +1,11 @@
-#include "./Includes/megaphone.hpp"
+#include "../Includes/phonebook.hpp"
 
-namespace megaphone {
+namespace phonebook {
 
 // constructors
-Contact::Contact(){};
+Contact::Contact() {
+	this->_empthyContact = true;
+};
 
 // getters
 std::string	Contact::getFirstName() const {
@@ -18,12 +20,16 @@ std::string	Contact::getNickName() const {
 	return _nickName;
 }
 
-unsigned int	Contact::getPhoneNumber() const {
+std::string	Contact::getPhoneNumber() const {
 	return _phoneNumber;
 }
 
 std::string	Contact::getDarkestSecret() const {
 	return _darkestSecret;
+}
+
+bool	Contact::isEmthyContact() const {
+	return _empthyContact;
 }
 
 
@@ -44,12 +50,13 @@ void	Contact::setNickName(std::string nickName) {
 	this->_nickName = nickName;
 }
 
-void	Contact::setPhoneNumber(unsigned int phoneNumber) {
+void	Contact::setPhoneNumber(std::string phoneNumber) {
 	this->_phoneNumber = phoneNumber;
 }
 
 void	Contact::setDarkestSecret(std::string darkestSecret) {
 	this->_darkestSecret = darkestSecret;
+	this->_empthyContact = false;
 }
 
 
