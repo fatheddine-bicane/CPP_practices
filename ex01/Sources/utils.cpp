@@ -5,7 +5,7 @@ std::string getUserInput() {
 	std::string	result;
 
 	std::getline(std::cin, result, '\n');
-	if (std::cin.eof()) throw std::runtime_error("EOF detected (Ctrl + D)");
+	if (std::cin.eof()) throw std::runtime_error("EOF detected (Ctrl + D).\n");
 	return result;
 }
 

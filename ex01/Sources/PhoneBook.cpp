@@ -16,20 +16,21 @@ std::string	PhoneBook::setContactFields(bool isPhoneNumber, std::string field) {
 	std::cout << GREEN "Enter " + field + ": " <<  RESET;
 	contactInfo = getUserInput();
 	while (contactInfo == "") {
-		std::cout << RED "A contact field cannot be emthy, try again.\n"
-			GREEN "Enter " + field + ": " << RESET;
+		std::cerr << RED "A contact field cannot be emthy, try again!\n";
+		std::cout << GREEN "Enter " + field + ": " << RESET;
 		contactInfo = getUserInput();
 	}
 	if (!isPhoneNumber) return contactInfo;
 	bool	phoneNumberIsCorrect = false;
 	do {
 		if (contactInfo.find_first_not_of("0123456789") != std::string::npos) {
-			std::cout << RED "A phone number must be composed of numerical values."
-				"try again\n" GREEN "Enter Phone Number: " RESET;
+			std::cerr << RED "A phone number must be composed of numerical values,"
+				"try again!\n";
+			std::cout << GREEN "Enter Phone Number: " RESET;
 			contactInfo = getUserInput();
 		} else if (contactInfo.at(0) == '\0') {
-			std::cout << RED "A contact field cannot be emthy, try again.\n"
-				GREEN "Enter Phone Number: " RESET;
+			std::cerr << RED "A contact field cannot be emthy, try again!\n";
+			std::cout << GREEN "Enter Phone Number: " RESET;
 			contactInfo = getUserInput();
 		} else {
 			phoneNumberIsCorrect = true;
@@ -52,7 +53,7 @@ void	PhoneBook::add() {
 
 void	PhoneBook::search() {
 	if (_contacts[0].isEmthyContact()) {
-		std::cout << RED "Contact's list is emthy!\n" RESET;
+		std::cerr << RED "Contact's list is emthy!\n" RESET;
 		return;
 	}
 	printExistingContacts();
@@ -75,7 +76,7 @@ void	PhoneBook::searchSpecificContact() {
 	int	index = getContactIndex();
 
 	if (_contacts[index].isEmthyContact()) {
-		std::cout << RED "This contact has not been set yet!\n" RESET;
+		std::cerr << RED "This contact has not been set yet!\n" RESET;
 		return;
 	}
 	std::cout << YELLOW "First name: " RESET
@@ -101,12 +102,15 @@ int	PhoneBook::getContactIndex() {
 	do {
 		contactIndex = getUserInput();
 		if (contactIndex.find_first_not_of("0123456789") != std::string::npos) {
-			std::cout << RED "Contact index must be a number\n" YELLOW "> " RESET;
+			std::cerr << RED "Contact index must be a number, try again!\n";
+			std::cout << YELLOW "> " RESET;
+			continue;
 		}
 		index = std::atoi(contactIndex.c_str());
-		if (index > 10 || index < 1) {
-			std::cout << RED "Contact index cannot be off range [1, 10]\n"
-				YELLOW "> " RESET;
+		if (!(index >= 1 && index <= 10)) {
+			std::cerr << RED "Contact index cannot be off range [1, 10], try again!\n";
+			std::cout << YELLOW "> " RESET;
+			continue;
 		} else {
 			correctIndex = true;
 		}
