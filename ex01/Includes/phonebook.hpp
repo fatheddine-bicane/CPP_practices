@@ -5,10 +5,7 @@
 #include <iomanip>
 #include "./Classes/Contact.hpp"
 #include "./Classes/PhoneBook.hpp"
-
-#include <exception> // <-- Required for std::exception
-
-// INFO: utils functions
+#include <exception>
 
 std::string getUserInput();
 void	promptUserStart();
