@@ -7,6 +7,6 @@ int main(int argc, char *argv[]) {
 	} catch (std::exception& error) {
 		std::cerr << RED "An error occurred: "
 			<< error.what() << RESET << std::endl;
-		std::exit(1);
+		return 1;
 	}
 }
