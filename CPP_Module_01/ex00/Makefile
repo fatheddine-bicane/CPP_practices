@@ -12,7 +12,7 @@ RESET = \033[0m
 
 #--------------------------------------------------------#
 
-.phony : all clean re
+.phony : all clean fclean re
 
 all : $(TARGET)
 

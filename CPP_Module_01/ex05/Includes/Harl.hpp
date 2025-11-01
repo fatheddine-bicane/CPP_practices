@@ -22,6 +22,8 @@ private:
 	void	warning(void);
 	void	error(void);
 	void	unknownLevel(void);
+	void	defineLevel(std::string, complainLevel&);
+	
 };
 
 }

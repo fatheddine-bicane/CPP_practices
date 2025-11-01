@@ -3,20 +3,26 @@
 namespace harl {
 
 void	Harl::complain(std::string level) {
-	complainLevel harlComplaining = NULL;
+	Harl::complainLevel	harlComplainLevel = NULL;
 
+	defineLevel(level, harlComplainLevel);
+	(this->*harlComplainLevel)();
+}
+
+
+void	Harl::defineLevel(
+	std::string level, Harl::complainLevel& harlComplainLevel) {
 	if (level == "DEBUG") {
-		harlComplaining = &Harl::debug;
+		harlComplainLevel = &Harl::debug;
 	} else if (level == "INFO") {
-		harlComplaining = &Harl::info;
+		harlComplainLevel = &Harl::info;
 	} else if (level == "WARNING") {
-		harlComplaining = &Harl::warning;
+		harlComplainLevel = &Harl::warning;
 	} else if (level == "ERROR") {
-		harlComplaining = &Harl::error;
+		harlComplainLevel = &Harl::error;
 	} else {
-		harlComplaining = &Harl::unknownLevel;
+		harlComplainLevel = &Harl::unknownLevel;
 	}
-	(this->*harlComplaining)();
 }
 
 void	Harl::debug() {
