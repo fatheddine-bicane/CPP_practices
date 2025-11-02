@@ -25,7 +25,7 @@ $(TARGET) : $(OBJ_FILE)
 
 clean :
 	@echo "$(RED)Removing object files$(RESET)"
-	@rm -f $(OBJ_FILES)
+	@rm -f $(OBJ_FILE)
 
 
 fclean : clean
