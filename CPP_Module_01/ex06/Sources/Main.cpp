@@ -13,7 +13,8 @@ int main(int argc, char* argv[]) {
 	try {
 		mainRunner(argc, argv);
 	} catch (std::exception& error) {
-		std::cerr << "An error occurred: " << error.what();
+		std::cerr << RED "An error occurred: "
+			<< error.what() << RESET;
 		return 1;
 	}
 }

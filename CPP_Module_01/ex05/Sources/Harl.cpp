@@ -26,26 +26,30 @@ void	Harl::defineLevel(
 }
 
 void	Harl::debug() {
-	std::cout << PURPLE "Harl: " BLUE "I love having extra bacon for my "
+	std::cout << BLACK << BG_BLUE "Harl:" BLUE
+		" I love having extra bacon for my "
 		"7XL-double-cheese-triple-pickle-special-"
 		"ketchup burger. I really do!\n" RESET;
 }
 
 void	Harl::info() {
-	std::cout << PURPLE "Harl: " BLUE "I cannot believe adding extra bacon "
+	std::cout << BLACK << BG_BLUE "Harl:" BLUE
+		" I cannot believe adding extra bacon "
 		"costs more money. You didn’t put"
 		"enough bacon in my burger! If you did, "
 		"I wouldn’t be asking for more!\n" RESET;
 }
 
 void	Harl::warning() {
-	std::cout << PURPLE "Harl: " BLUE "I think I deserve to have some extra "
+	std::cout << BLACK << BG_BLUE "Harl:" BLUE
+		" I think I deserve to have some extra "
 		"bacon for free. I’ve been coming for years, "
 		"whereas you started working here just last month.\n" RESET;
 }
 
 void	Harl::error() {
-	std::cout << PURPLE "Harl: " BLUE "This is unacceptable! I want to speak "
+	std::cout << BLACK << BG_BLUE "Harl:" BLUE
+		" This is unacceptable! I want to speak "
 		"to the manager now.\n" RESET;
 }
 
