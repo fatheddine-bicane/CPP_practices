@@ -19,11 +19,11 @@ static std::string replaceLine(
 }
 
 void	replaceFileContent(std::string fileName, std::string s1 ,std::string s2) {
-	std::ifstream	fileToReplace(fileName);
+	std::ifstream	fileToReplace(fileName.c_str());
 	if (!fileToReplace.is_open()) {
 		throw std::runtime_error("file doesn't exist!");
 	}
-	std::ofstream	formatedFile(fileName + ".replace");
+	std::ofstream	formatedFile((fileName + ".replace").c_str());
 	if (!formatedFile.is_open()) {
 		fileToReplace.close();
 		throw std::runtime_error("couldn't create a file!");
