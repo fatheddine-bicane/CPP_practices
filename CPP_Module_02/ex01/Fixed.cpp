@@ -23,7 +23,7 @@ Fixed::Fixed(const int value) {
 
 Fixed::Fixed(const float value) {
 	std::cout << "Float constructor called\n";
-	_value = value * 256;
+	_value = roundf(value * 256);
 }
 
 Fixed::Fixed(const Fixed& toCopy) {
