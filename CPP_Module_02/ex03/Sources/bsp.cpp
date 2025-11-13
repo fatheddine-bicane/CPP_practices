@@ -3,7 +3,7 @@
 
 namespace Bsp {
 
-float	triangleArea(Point const p1, Point const p2, Point const p3) {
+static float	triangleArea(Point const p1, Point const p2, Point const p3) {
 	float p1x = p1.getXCoordinate();
 	float p1y = p1.getYCoordinate();
 	float p2x = p2.getXCoordinate();
