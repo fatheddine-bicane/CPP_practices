@@ -1,13 +1,7 @@
 #include "../Includes/bsp.hpp"
 #include <cmath>
-#include <iostream>
 
 namespace Bsp {
-
-
-
-
-
 
 float	triangleArea(Point const p1, Point const p2, Point const p3) {
 	float p1x = p1.getXCoordinate();
@@ -20,7 +14,6 @@ float	triangleArea(Point const p1, Point const p2, Point const p3) {
 	float area = 0.5 * ((p1x - p2x) * (p1y - p3y) - (p1x - p3x) * (p1y - p2y));
 	return fabs(area);
 }
-
 
 bool	bsp(Point const a, Point const b,
 		    Point const c, Point const point) {
@@ -35,28 +28,14 @@ bool	bsp(Point const a, Point const b,
 		|| triangleCPA == 0) {
 		return false;
 	}
-
-
-	std::cout << "ABC area: " << triangleABC << std::endl;
-	std::cout << "-----------------" << std::endl;
-
-	std::cout << "abp area: " << triangleABP << std::endl;
-	std::cout << "bcp area: " << triangleBCP << std::endl;
-	std::cout << "cpa area: " << triangleCPA << std::endl;
-
-	// std::cout << "p triangles sum: " << triangleABP + tr << std::endl;
-
-
-
-
 	fixed::Fixed sum = triangleABP + triangleBCP + triangleCPA;
-	std::cout << "p triangles sum: " << sum << std::endl;
-
 	bool result = (roundf(sum.toFloat()) == roundf(triangleABC)) ? true : false;
 	return result;
 }
 
 
+
+// INFO: the slope methode
 
 // static float	calculateSlope(Point const fenceStart,
 // 					   Point const fenceEnd,
@@ -95,5 +74,5 @@ bool	bsp(Point const a, Point const b,
 //
 // 	return false;
 // }
-//
+
 }

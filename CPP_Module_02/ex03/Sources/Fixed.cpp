@@ -14,22 +14,18 @@ std::ostream&	operator<<(std::ostream& lhs, const Fixed& rhs) {
 // INFO: constructors
 /*--------------------------------------------------------*/
 Fixed::Fixed() {
-	std::cout << "Default constructor called\n";
 	_value = 0;
 }
 
 Fixed::Fixed(const int value) {
-	std::cout << "Int constructor called\n";
 	_value = value << _fractionalBits;
 }
 
 Fixed::Fixed(const float value) {
-	std::cout << "Float constructor called\n";
 	_value = roundf(value * 256);
 }
 
 Fixed::Fixed(const Fixed& toCopy) {
-	std::cout << "Copy constructor called\n";
 	_value = toCopy._value;
 }
 /*--------------------------------------------------------*/
@@ -38,7 +34,6 @@ Fixed::Fixed(const Fixed& toCopy) {
 // INFO: binary operators
 /*--------------------------------------------------------*/
 Fixed&	Fixed::operator=(const Fixed& rhs) {
-	std::cout << "Copy assignment operator called\n";
 	if (this != &rhs) {
 		_value = rhs._value;
 	}
@@ -128,7 +123,6 @@ Fixed	Fixed::operator--(int) {
 // INFO: member functions
 /*--------------------------------------------------------*/
 float	Fixed::toFloat(void) const {
-	// return (_value >> 8);
 	return ((float)_value / 256.0);
 }
 
@@ -137,12 +131,10 @@ int	Fixed::toInt(void) const {
 }
 
 int	Fixed::getRawBits() const {
-	std::cout << "getRawBits member function called\n";
 	return _value;
 }
 
 void	Fixed::setRawBits(int const raw) {
-	std::cout << "setRawBits member function called\n";
 	_value = raw;
 }
 /*--------------------------------------------------------*/
@@ -183,8 +175,6 @@ Fixed& Fixed::max(const Fixed& fixed1, const Fixed& fixed2) {
 
 
 // INFO: destructor
-Fixed::~Fixed() {
-	std::cout << "Destructor called\n";
-}
+Fixed::~Fixed() {}
 
 }
