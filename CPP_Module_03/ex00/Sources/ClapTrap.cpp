@@ -1,5 +1,5 @@
 #include "../Includes/Classes/ClapTrap.hpp"
-#include "../Includes/arena.hpp"
+#include "../Includes/colors.hpp"
 #include <iostream>
 
 namespace arena {
@@ -40,12 +40,25 @@ ClapTrap&	ClapTrap::operator=(const ClapTrap& other) {
 }
 
 void	ClapTrap::attack(const std::string& target) {
-	(void)target;
-	return ;
+	std::cout << "ClapTrap " << BLACK BOLD BG_CYAN
+		<< _name << RESET " attacks " << BLACK BOLD BG_RED
+		<< target << RESET ", causing " << BLOOD_RED
+		<< _attackDamage << RESET " points of damage!\n";
 }
 
 void	ClapTrap::takeDamage(unsigned int amount) {
+	if (amount >= _healthPoints) {
+		_healthPoints = 0;
+		std::cout << "ClapTrap " << BLACK BOLD BG_CYAN
+			<< _name << RESET " took "
+			<< BLOOD_RED << amount << RESET << " " <<
+			BLOOD_RED BOLD "AND HE DIED!\n" RESET;
+		return ;
+	}
 	_healthPoints -= amount;
+	std::cout << "ClapTrap " << BLACK BOLD BG_CYAN
+		<< _name << RESET " took damage, and lost "
+		<< BLOOD_RED << amount << RESET " health points!\n";
 }
 
 void	ClapTrap::beRepaired(unsigned int amount) {
@@ -53,6 +66,9 @@ void	ClapTrap::beRepaired(unsigned int amount) {
 		return ;
 	}
 	_healthPoints += amount;
+	std::cout << "ClapTrap " << BLACK BOLD BG_CYAN
+		<< _name << RESET " repaired his armor, restoring "
+		<< GREEN << 2 << RESET " health points!\n";
 }
 
 ClapTrap::~ClapTrap() {
