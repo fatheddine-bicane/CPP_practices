@@ -7,7 +7,7 @@ namespace arena {
 class ClapTrap {
 private:
 	std::string		_name;
-	unsigned int	_hitPoints; // representing the healt of the ClapTrap
+	unsigned int	_healthPoints;
 	unsigned int	_energyPoint;
 	unsigned int	_attackDamage;
 
@@ -17,6 +17,7 @@ public:
 	ClapTrap(std::string name);
 	ClapTrap(const ClapTrap& other);
 	ClapTrap&	operator=(const ClapTrap& other);
+	~ClapTrap();
 
 
 	void	attack(const std::string& target);

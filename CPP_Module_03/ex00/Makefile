@@ -1,4 +1,4 @@
-TARGET = Bsp
+TARGET = Arena
 SOURCE_FILES = $(wildcard ./Sources/*.cpp)
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 COMPILER = c++
@@ -17,7 +17,7 @@ RESET = \033[0m
 all : $(TARGET)
 
 $(TARGET) : $(OBJ_FILES)
-	@echo "$(GREEN)Building Bsp$(RESET)"
+	@echo "$(GREEN)Building Arena$(RESET)"
 	@$(COMPILER) $(CPP_FLAGS) $(OBJ_FILES) -o $(TARGET)
 
 ./Sources/%.o : ./Sources/%.cpp
@@ -28,7 +28,7 @@ clean :
 	@rm -f $(OBJ_FILES)
 
 fclean : clean
-	@echo "$(RED)Removing Bsp$(RESET)"
-	@rm -f Bsp
+	@echo "$(RED)Removing Arena$(RESET)"
+	@rm -f Arena
 
 re : fclean all
