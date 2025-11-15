@@ -47,6 +47,10 @@ ClapTrap&	ClapTrap::operator=(const ClapTrap& other) {
 }
 
 void	ClapTrap::attack(const std::string& target) {
+	if (_energyPoint == 0) {
+		return ;
+	}
+	_energyPoint--;
 	std::cout << "ClapTrap " << BLACK BOLD BG_CYAN
 		<< _name << RESET " attacks " << BLACK BOLD BG_RED
 		<< target << RESET ", causing " << BLOOD_RED

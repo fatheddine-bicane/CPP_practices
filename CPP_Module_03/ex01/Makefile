@@ -1,6 +1,6 @@
 TARGET = Arena
 SOURCE_FILES = $(wildcard ./Sources/*.cpp)
-CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
+CPP_FLAGS = -Wall -Wextra -Werror -std=c++98 -g
 COMPILER = c++
 OBJ_FILES = $(SOURCE_FILES:./Sources/%.cpp=./Sources/%.o)
 
