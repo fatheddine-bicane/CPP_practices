@@ -12,7 +12,7 @@ ClapTrap::ClapTrap()
 	std::cout << "Default constructor called\n";
 }
 
-ClapTrap::ClapTrap(std::string name)
+ClapTrap::ClapTrap(const std::string& name)
 	: _name(name),
 	  _healthPoints(10),
 	  _energyPoint(10),

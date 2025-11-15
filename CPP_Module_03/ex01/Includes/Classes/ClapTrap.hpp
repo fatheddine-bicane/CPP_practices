@@ -14,7 +14,7 @@ protected:
 public:
 	// constructors
 	ClapTrap();
-	ClapTrap(std::string name);
+	ClapTrap(const std::string& name);
 	ClapTrap(std::string name, unsigned int healthPoints,
 		  unsigned int energyPoint, unsigned int attackDamage);
 	ClapTrap(const ClapTrap& other);

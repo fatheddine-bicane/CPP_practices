@@ -11,7 +11,7 @@ ScavTrap::ScavTrap() {
 	std::cout << "Default derived class constructor called\n";
 }
 
-ScavTrap::ScavTrap(std::string name, unsigned int healthPoints,
+ScavTrap::ScavTrap(const std::string& name, unsigned int healthPoints,
 		  unsigned int energyPoint, unsigned int attackDamage)
 	: ClapTrap(name, healthPoints, energyPoint, attackDamage) {
 	std::cout << "Parameterased derived class constructor called\n";
@@ -43,31 +43,6 @@ void	ScavTrap::attack(const std::string& target) {
 		<< target << RESET ", causing " << BLOOD_RED
 		<< _attackDamage << RESET " points of damage!\n";
 }
-
-// void	ScavTrap::takeDamage(unsigned int amount) {
-// 	if (amount >= _healthPoints) {
-// 		_healthPoints = 0;
-// 		std::cout << "ScavTrap " << BLACK BOLD BG_PURPLE
-// 			<< _name << RESET " took "
-// 			<< BLOOD_RED << amount << RESET << " " <<
-// 			BLOOD_RED BOLD "AND HE DIED!\n" RESET;
-// 		return ;
-// 	}
-// 	_healthPoints -= amount;
-// 	std::cout << "ScavTrap " << BLACK BOLD BG_PURPLE
-// 		<< _name << RESET " took damage, and lost "
-// 		<< BLOOD_RED << amount << RESET " health points!\n";
-// }
-//
-// void	ScavTrap::beRepaired(unsigned int amount) {
-// 	if (_healthPoints == 0) {
-// 		return ;
-// 	}
-// 	_healthPoints += amount;
-// 	std::cout << "ScavTrap " << BLACK BOLD BG_PURPLE
-// 		<< _name << RESET " repaired his armor, restoring "
-// 		<< GREEN << 2 << RESET " health points!\n";
-// }
 
 void	ScavTrap::guardGate() {
 	std::cout << "ScavTrap " << BLACK BOLD BG_PURPLE

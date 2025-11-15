@@ -7,7 +7,7 @@ namespace arena {
 class ScavTrap : public ClapTrap {
 public:
 	ScavTrap();
-	ScavTrap(std::string name, unsigned int healthPoints,
+	ScavTrap(const std::string& name, unsigned int healthPoints,
 		  unsigned int energyPoint, unsigned int attackDamage);
 	ScavTrap(const ScavTrap& other);
 	ScavTrap&	operator=(const ScavTrap& other);

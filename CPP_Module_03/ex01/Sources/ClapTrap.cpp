@@ -12,7 +12,7 @@ ClapTrap::ClapTrap()
 	std::cout << "Default base class constructor called\n";
 }
 
-ClapTrap::ClapTrap(std::string name)
+ClapTrap::ClapTrap(const std::string& name)
 	: _name(name),
 	  _healthPoints(10),
 	  _energyPoint(10),
@@ -25,7 +25,9 @@ ClapTrap::ClapTrap(std::string name, unsigned int healthPoints,
 	: _name(name),
 	  _healthPoints(healthPoints),
 	  _energyPoint(energyPoint),
-	  _attackDamage(attackDamage) {}
+	  _attackDamage(attackDamage) {
+	std::cout << "Parameterased base class constructor called\n";
+}
 
 ClapTrap::ClapTrap(const ClapTrap& other) {
 	_name = other._name;
