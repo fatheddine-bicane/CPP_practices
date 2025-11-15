@@ -40,6 +40,10 @@ ClapTrap&	ClapTrap::operator=(const ClapTrap& other) {
 }
 
 void	ClapTrap::attack(const std::string& target) {
+	if (_energyPoint == 0) {
+		return ;
+	}
+	_energyPoint--;
 	std::cout << "ClapTrap " << BLACK BOLD BG_CYAN
 		<< _name << RESET " attacks " << BLACK BOLD BG_RED
 		<< target << RESET ", causing " << BLOOD_RED
@@ -65,6 +69,10 @@ void	ClapTrap::beRepaired(unsigned int amount) {
 	if (_healthPoints == 0) {
 		return ;
 	}
+	else if (_energyPoint == 0) {
+		return ;
+	}
+	_energyPoint--;
 	_healthPoints += amount;
 	std::cout << "ClapTrap " << BLACK BOLD BG_CYAN
 		<< _name << RESET " repaired his armor, restoring "
