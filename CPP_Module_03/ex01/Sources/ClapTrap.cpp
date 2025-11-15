@@ -9,7 +9,7 @@ ClapTrap::ClapTrap()
 	  _healthPoints(0),
 	  _energyPoint(0),
 	  _attackDamage(0) {
-	std::cout << "Default constructor called\n";
+	std::cout << "Default base class constructor called\n";
 }
 
 ClapTrap::ClapTrap(std::string name)
@@ -17,15 +17,22 @@ ClapTrap::ClapTrap(std::string name)
 	  _healthPoints(10),
 	  _energyPoint(10),
 	  _attackDamage(0) {
-	std::cout << "Parameterased constructor called\n";
+	std::cout << "Parameterased base class constructor called\n";
 }
+
+ClapTrap::ClapTrap(std::string name, unsigned int healthPoints,
+		  unsigned int energyPoint, unsigned int attackDamage)
+	: _name(name),
+	  _healthPoints(healthPoints),
+	  _energyPoint(energyPoint),
+	  _attackDamage(attackDamage) {}
 
 ClapTrap::ClapTrap(const ClapTrap& other) {
 	_name = other._name;
 	_healthPoints = other._healthPoints;
 	_energyPoint = other._energyPoint;
 	_attackDamage = other._attackDamage;
-	std::cout << "Copy constructor called\n";
+	std::cout << "Base class copy constructor called\n";
 }
 
 ClapTrap&	ClapTrap::operator=(const ClapTrap& other) {
@@ -40,10 +47,6 @@ ClapTrap&	ClapTrap::operator=(const ClapTrap& other) {
 }
 
 void	ClapTrap::attack(const std::string& target) {
-	if (_energyPoint == 0) {
-		return ;
-	}
-	_energyPoint--;
 	std::cout << "ClapTrap " << BLACK BOLD BG_CYAN
 		<< _name << RESET " attacks " << BLACK BOLD BG_RED
 		<< target << RESET ", causing " << BLOOD_RED
@@ -80,7 +83,7 @@ void	ClapTrap::beRepaired(unsigned int amount) {
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << "Destructor called\n";
+	std::cout << "Base class destructor called\n";
 }
 
 }
