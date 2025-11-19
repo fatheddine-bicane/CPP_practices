@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./Classes/AMateria.hpp"
+#include "./Classes/AbstractClasses/AMateria.hpp"
 
 typedef struct s_floor {
 	AMateria* materia;

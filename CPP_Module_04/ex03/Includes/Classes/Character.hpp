@@ -1,7 +1,7 @@
 #pragma once
 
-#include "./ICharacter.hpp"
-#include "AMateria.hpp"
+#include "./Interfaces/ICharacter.hpp"
+#include "./AbstractClasses/AMateria.hpp"
 #include "../floor.hpp"
 
 // implements the ICharacter interface

@@ -1,6 +1,6 @@
 #include "../Includes/Classes/Ice.hpp"
 #include "../Includes/colors.hpp"
-#include "../Includes/Classes/ICharacter.hpp"
+#include "../Includes/Classes/Interfaces/ICharacter.hpp"
 #include <iostream>
 
 Ice::Ice() : AMateria("ice") {

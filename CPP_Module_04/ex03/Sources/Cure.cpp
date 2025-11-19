@@ -1,6 +1,6 @@
 #include "../Includes/Classes/Cure.hpp"
 #include "../Includes/colors.hpp"
-#include "../Includes/Classes/ICharacter.hpp"
+#include "../Includes/Classes/Interfaces/ICharacter.hpp"
 #include <iostream>
 
 Cure::Cure() : AMateria("cure") {

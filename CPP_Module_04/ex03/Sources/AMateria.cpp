@@ -1,5 +1,5 @@
-#include "../Includes/Classes/AMateria.hpp"
-#include "../Includes/Classes/ICharacter.hpp"
+#include "../Includes/Classes/AbstractClasses/AMateria.hpp"
+#include "../Includes/Classes/Interfaces/ICharacter.hpp"
 #include "../Includes/colors.hpp"
 #include <iostream>
 
