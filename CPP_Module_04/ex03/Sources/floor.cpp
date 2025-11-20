@@ -20,3 +20,15 @@ void	dropMateria(AMateria* materia) {
 	last->next->materia = materia;
 	last->next->next = NULL;
 }
+
+void	cleanFloor() {
+	t_floor* MateriaToDelete = g_floor;
+	t_floor* nodeToDelete = g_floor;
+	while (MateriaToDelete != NULL) {
+		delete MateriaToDelete->materia;
+		MateriaToDelete->materia = NULL;
+		MateriaToDelete = MateriaToDelete->next;
+		delete nodeToDelete;
+		nodeToDelete = MateriaToDelete;
+	}
+}

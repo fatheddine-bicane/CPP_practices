@@ -3,29 +3,17 @@
 #include "../Includes/Classes/Interfaces/ICharacter.hpp"
 #include <iostream>
 
-Cure::Cure() : AMateria("cure") {
-	std::cout << UNDERLINE GREEN
-		<< "Cure default constructor called!\n" RESET;
-}
+Cure::Cure() : AMateria("cure") {}
 
 Cure::Cure(const std::string& color)
 	: AMateria("cure"),
-	  _color(color) {
-	std::cout << UNDERLINE GREEN
-		<< "Cure parameterized constructor called!\n" RESET;
-}
+	  _color(color) {}
 
 Cure::Cure(const Cure& other)
 	: AMateria("cure"),
-	  _color(other._color) {
-	std::cout << UNDERLINE GREEN
-		<< "Cure copy constructor called!\n" RESET;
-}
+	  _color(other._color) {}
 
-Cure::~Cure() {
-	std::cout << UNDERLINE GREEN
-		<< "Cure destructor called!\n" RESET;
-}
+Cure::~Cure() {}
 
 Cure&	Cure::operator=(const Cure& other) {
 	if (this == &other) {

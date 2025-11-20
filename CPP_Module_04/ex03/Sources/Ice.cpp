@@ -3,29 +3,17 @@
 #include "../Includes/Classes/Interfaces/ICharacter.hpp"
 #include <iostream>
 
-Ice::Ice() : AMateria("ice") {
-	std::cout << UNDERLINE CYAN
-		<< "Ice default constructor called!\n" RESET;
-}
+Ice::Ice() : AMateria("ice") {}
 
 Ice::Ice(const std::string& color)
 	: AMateria("ice"),
-	  _color(color) {
-	std::cout << UNDERLINE CYAN
-		<< "Ice parameterized constructor called!\n" RESET;
-}
+	  _color(color) {}
 
 Ice::Ice(const Ice& other)
 	: AMateria("ice"),
-	  _color(other._color) {
-	std::cout << UNDERLINE CYAN
-		<< "Ice copy constructor called!\n" RESET;
-}
+	  _color(other._color) {}
 
-Ice::~Ice() {
-	std::cout << UNDERLINE CYAN
-		<< "Ice destructor called!\n" RESET;
-}
+Ice::~Ice() {}
 
 Ice&	Ice::operator=(const Ice& other) {
 	if (this == &other) {

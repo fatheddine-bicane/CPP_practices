@@ -3,8 +3,6 @@
 #include <iostream>
 
 Character::Character() : _name("") {
-	std::cout << UNDERLINE YELLOW
-		<< "Ice default constructor called!\n" RESET;
 	for (int i = 0; i < 4; i++) {
 		_inventory[i] = NULL;
 	}
@@ -12,8 +10,6 @@ Character::Character() : _name("") {
 
 Character::Character(const std::string& name)
 	: _name(name) {
-	std::cout << UNDERLINE YELLOW
-		<< "Ice parameterized constructor called!\n" RESET;
 	for (int i = 0; i < 4; i++) {
 		_inventory[i] = NULL;
 	}
@@ -21,8 +17,6 @@ Character::Character(const std::string& name)
 
 Character::Character(const Character& other)
 	: _name(other._name) {
-	std::cout << UNDERLINE YELLOW
-		<< "Ice copy constructor called!\n" RESET;
 	for (int i = 0; i < 4; i++) {
 		if (other._inventory[i] != NULL) {
 			_inventory[i] = other._inventory[i]->clone();
@@ -33,8 +27,6 @@ Character::Character(const Character& other)
 }
 
 Character::~Character() {
-	std::cout << UNDERLINE YELLOW
-		<< "Ice destructor called!\n" RESET;
 	for (int i = 0; i < 4; i++) {
 		if (_inventory[i] != NULL) {
 			delete _inventory[i];
