@@ -13,7 +13,23 @@ AForm::AForm(const std::string& name, const std::string& target, int gradeToSign
 	_target(target),
 	_isSigned(false),
 	_gradeToSign(gradeToSign),
-	_gradeToExecute(gradeToExecute) {}
+	_gradeToExecute(gradeToExecute) {
+	std::stringstream	err_ss;
+	if (gradeToSign < 1) {
+		err_ss << "The grade to sign: " << gradeToSign << " is too high!\n";
+		throw AForm::GradeTooHighException(err_ss.str());
+	} else if (gradeToSign > 150) {
+		err_ss << "The grade to sign: " << gradeToSign << " is too low!\n";
+		throw AForm::GradeTooLowException(err_ss.str());
+	}
+	if (gradeToExecute < 1) {
+		err_ss << "The grade to execute: " << gradeToExecute << " is too high!\n";
+		throw AForm::GradeTooHighException(err_ss.str());
+	} else if (gradeToExecute > 150) {
+		err_ss << "The grade to execute: " << gradeToExecute << " is too low!\n";
+		throw AForm::GradeTooLowException(err_ss.str());
+	}
+}
 
 AForm::AForm(const AForm& other) :
 	_name(other._name),
@@ -97,7 +113,7 @@ const char* AForm::FormNotSignedException::what() const throw() {
 std::ostream& operator<<(std::ostream& lhs, const AForm& rhs) {
 	lhs << "-Form name: " << rhs.getName()
 		<< "\n-Form target: " << rhs.getTarget()
-		<< "\n-Form is signed: " << rhs.isSigned()
+		<< "\n-Form is signed: " << (rhs.isSigned() ? "true" : "false")
 		<< "\n-Form grade to sign: " << rhs.getToSignGrade()
 		<< "\n-Form grade to execute: " << rhs.getToExecuteGrade() << "\n";
 	return lhs;
