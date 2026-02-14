@@ -76,7 +76,7 @@ int main() {
 		std::cout << "Promoting Tax collector..." << std::endl;
 		taxCollector.incrementGrade();
 		taxCollector.incrementGrade();
-		std::cout << taxCollector.getName() << ", grade " << taxCollector.getGrade() << std::endl;
+		std::cout << taxCollector << std::endl;
 		taxCollector.signForm(taxForm);
 		std::cout << taxForm << std::endl;
 	} catch (std::exception& e) {
@@ -89,7 +89,7 @@ int main() {
 	std::cout << "========================================" << std::endl;
 	try {
 		Bureaucrat govAccountants("Government accountants", 0);
-		std::cout << govAccountants.getName() << ", grade " << govAccountants.getGrade() << std::endl;
+		std::cout << govAccountants << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}

@@ -7,7 +7,7 @@ int main() {
 	std::cout << "========================================" << std::endl;
 	try {
 		Bureaucrat bob("Bob", 50);
-		std::cout << bob.getName() << ", grade " << bob.getGrade() << std::endl;
+		std::cout << bob << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
@@ -18,9 +18,9 @@ int main() {
 	std::cout << "========================================" << std::endl;
 	try {
 		Bureaucrat taxCollector("Tax collector", 3);
-		std::cout << "Before: " << taxCollector.getName() << ", grade " << taxCollector.getGrade() << std::endl;
+		std::cout << "Before: " << taxCollector << std::endl;
 		taxCollector.incrementGrade();
-		std::cout << "After increment: " << taxCollector.getName() << ", grade " << taxCollector.getGrade() << std::endl;
+		std::cout << "After increment: " << taxCollector << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
@@ -31,9 +31,9 @@ int main() {
 	std::cout << "========================================" << std::endl;
 	try {
 		Bureaucrat clerk("Clerk", 100);
-		std::cout << "Before: " << clerk.getName() << ", grade " << clerk.getGrade() << std::endl;
+		std::cout << "Before: " << clerk << std::endl;
 		clerk.decrementGrade();
-		std::cout << "After decrement: " << clerk.getName() << ", grade " << clerk.getGrade() << std::endl;
+		std::cout << "After decrement: " << clerk << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
@@ -44,7 +44,7 @@ int main() {
 	std::cout << "========================================" << std::endl;
 	try {
 		Bureaucrat invalid("Invalid", 0);
-		std::cout << invalid.getName() << ", grade " << invalid.getGrade() << std::endl;
+		std::cout << invalid << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
@@ -55,7 +55,7 @@ int main() {
 	std::cout << "========================================" << std::endl;
 	try {
 		Bureaucrat invalid("Invalid", 151);
-		std::cout << invalid.getName() << ", grade " << invalid.getGrade() << std::endl;
+		std::cout << invalid << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
@@ -66,9 +66,9 @@ int main() {
 	std::cout << "========================================" << std::endl;
 	try {
 		Bureaucrat govAccountants("Government accountants", 1);
-		std::cout << "Before: " << govAccountants.getName() << ", grade " << govAccountants.getGrade() << std::endl;
+		std::cout << "Before: " << govAccountants << std::endl;
 		govAccountants.incrementGrade();
-		std::cout << "After: " << govAccountants.getName() << ", grade " << govAccountants.getGrade() << std::endl;
+		std::cout << "After: " << govAccountants << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
@@ -79,9 +79,9 @@ int main() {
 	std::cout << "========================================" << std::endl;
 	try {
 		Bureaucrat intern("Intern", 150);
-		std::cout << "Before: " << intern.getName() << ", grade " << intern.getGrade() << std::endl;
+		std::cout << "Before: " << intern << std::endl;
 		intern.decrementGrade();
-		std::cout << "After: " << intern.getName() << ", grade " << intern.getGrade() << std::endl;
+		std::cout << "After: " << intern << std::endl;
 	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}

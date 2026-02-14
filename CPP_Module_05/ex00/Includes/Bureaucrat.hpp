@@ -1,6 +1,7 @@
 #pragma once
 
 #include <exception>
+#include <ostream>
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -46,3 +47,5 @@ public:
 		const char* what() const throw();
 	};
 };
+
+std::ostream& operator<<(std::ostream& lhs, const Bureaucrat& rhs);

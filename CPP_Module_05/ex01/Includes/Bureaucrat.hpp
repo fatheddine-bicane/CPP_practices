@@ -49,3 +49,5 @@ public:
 		const char* what() const throw();
 	};
 };
+
+std::ostream& operator<<(std::ostream& lhs, const Bureaucrat& rhs);
