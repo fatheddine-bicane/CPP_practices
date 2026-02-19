@@ -1,14 +1,33 @@
 #pragma once
 
+#include <deque>
 #include <stack>
-template<typename T>
-class MutantStack : public std::stack<T> {
+template<typename T, typename Sequence = std::deque<T> >
+class MutantStack : public std::stack<T, Sequence> {
 public:
+	MutantStack() : std::stack<T, Sequence>() {};
+
+	MutantStack(const Sequence& sequence) :
+		std::stack<T, Sequence>(sequence) {}
+
+	MutantStack(const MutantStack& other) :
+		std::stack<T, Sequence>(other) {}
+
+	MutantStack& operator=(const MutantStack& other) {
+		if (this == &other) {
+			return *this;
+		}
+		std::stack<T, Sequence>::operator=(other);
+		return *this;
+	}
+
+	~MutantStack() {}
+	
 	// INFO: types of iterators
-	typedef typename std::stack<T>::container_type::iterator iterator;
-	typedef typename std::stack<T>::container_type::const_iterator const_iterator;
-	typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
-	typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
+	typedef typename std::stack<T, Sequence>::container_type::iterator iterator;
+	typedef typename std::stack<T, Sequence>::container_type::const_iterator const_iterator;
+	typedef typename std::stack<T, Sequence>::container_type::reverse_iterator reverse_iterator;
+	typedef typename std::stack<T, Sequence>::container_type::const_reverse_iterator const_reverse_iterator;
 	
 
 
