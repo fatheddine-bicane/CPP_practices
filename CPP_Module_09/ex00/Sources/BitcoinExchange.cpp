@@ -24,9 +24,8 @@ bool	BitcoinExchange::isKnuckleMonth(int month) {
 
 
 bool	BitcoinExchange::isDateValid(int year, int month, int day) {
-	if (!(year >= 2009 && year <= 2022)) return false;
+	if (year < 2009) return false;
 	if (year == 2009 && (month < 1 || day < 2)) return false;
-	if (year == 2022 && (month > 3 || day > 29)) return false;
 	if (!(month >= 1 && month <= 12) || !(day >= 1 && day <= 31)) return false;
 	return true;
 }
@@ -34,17 +33,17 @@ bool	BitcoinExchange::isDateValid(int year, int month, int day) {
 
 void	BitcoinExchange::checkDateSyntax(const std::string& date) {
 	if (date.length() != 10) {
-		throw std::runtime_error("bad date input: " + date + "!\n");
+		throw std::runtime_error("bad date input: '" + date + "'!\n");
 	}
 	int	hyphen_count = 0;
 	for (int i = 0; i < 10; i++) {
 		if (date[i] == '-') {
 			if (hyphen_count == 2) {
-				throw std::runtime_error("bad date input: " + date + "!\n");
+				throw std::runtime_error("bad date input: '" + date + "'!\n");
 			}
 			hyphen_count++;
 		} else if (!std::isdigit(date[i])) {
-			throw std::runtime_error("bad date input: " + date + "!\n");
+			throw std::runtime_error("bad date input: '" + date + "'!\n");
 		}
 	}
 }
@@ -57,19 +56,19 @@ void	BitcoinExchange::parseDate(const std::string& date) {
 	int	day = std::atoi(date.substr(8).c_str());
 
 	if (!isDateValid(year, month, day)) {
-		throw std::runtime_error("date cannot be used: " + date + "!\n");
+		throw std::runtime_error("bad date input: '" + date + "'!\n");
 	}
 
 	if (month == 2) {
 		if (day > 29) {
-			throw std::runtime_error("incorrect day number!\n");
+			throw std::runtime_error("bad date input: '" + date + "'!\n");
 		} else if (!isLeapYear(year) && day == 29) {
 			throw std::runtime_error("non leap years cannot contain 29 days!\n");
 		}
 	} else if (!isKnuckleMonth(month) && day == 31) {
-		throw std::runtime_error("incorrect day number!\n");
+		throw std::runtime_error("bad date input: '" + date + "'!\n");
 	} else if (isKnuckleMonth(month) && day > 30) {
-		throw std::runtime_error("incorrect day number!\n");
+		throw std::runtime_error("bad date input: '" + date + "'!\n");
 	}
 }
 // ------------------------------------------------------------------------
