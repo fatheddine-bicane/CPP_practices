@@ -21,6 +21,12 @@ private:
 	void	evaluateBtcValue(const std::string& date, float value);
 
 public:
+	// INFO: orthodox canonical
+	BitcoinExchange();
+	BitcoinExchange(const BitcoinExchange& other);
+	BitcoinExchange& operator=(const BitcoinExchange& other);
+	~BitcoinExchange();
+
 	void	readDataBase();
 	void	evaluateInputFile(std::string path);
 

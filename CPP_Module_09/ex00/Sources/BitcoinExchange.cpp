@@ -9,6 +9,25 @@
 #include <stdexcept>
 #include <string>
 
+// INFO: orthodox canonical
+// ------------------------------------------------------------------------
+BitcoinExchange::BitcoinExchange() {};
+
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) :
+	_db(other._db) {}
+
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
+	if (this == &other) {
+		return *this;
+	}
+	this->_db = other._db;
+	return *this;
+}
+
+BitcoinExchange::~BitcoinExchange() {}
+
+// ------------------------------------------------------------------------
+
 
 // INFO: validate date input
 // ------------------------------------------------------------------------
