@@ -1,16 +1,19 @@
 #include "../Includes/BitcoinExchange.hpp"
+#include <iostream>
 
 int	main(int argc, char** argv) {
 	BitcoinExchange btc;
+	if (argc != 2) {
+		std::cerr << "Error: program takes an input file!\n";
+		return 1;
+	}
 
-	// read data base
 	btc.readDataBase();
 
 	// parse input file
-	(void)argc;
-	btc.evaluateInputFile(argv[1]);
-
-
-
-	// find rlated prices and print them
+	try {
+		btc.evaluateInputFile(argv[1]);
+	} catch (std::exception& e) {
+		std::cout << "Error: " << e.what() << std::endl;
+	}
 }

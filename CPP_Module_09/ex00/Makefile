@@ -1,7 +1,7 @@
 TARGET = btc
 SOURCE_FILES = $(wildcard ./Sources/*.cpp)
 HEADER_FILES = $(wildcard ./Includes/*.hpp)
-CPP_FLAGS = -Wall -Wextra -Werror -std=c++98 -g
+CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 COMPILER = c++
 OBJ_FILES = $(SOURCE_FILES:./Sources/%.cpp=./Sources/%.o)
 

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <map>
+#include <ostream>
 #include <stdexcept>
 #include <string>
 
@@ -80,16 +81,30 @@ void	BitcoinExchange::parseDate(const std::string& date) {
 float	BitcoinExchange::parseValue(const std::string& value) {
 	char*	end = NULL;
 	double	numeric_value = strtod(value.c_str(), &end);
-	if (end != NULL) {
+	if (*end != '\0') {
 		throw std::runtime_error("value not valid: '" + value + "'!\n");
-	} else if (!(numeric_value >= 0 && numeric_value <= 1000)) {
-		throw std::runtime_error("value not valid: '" + value + "'!\n");
+	} else if (numeric_value >= 1000) {
+		throw std::runtime_error("too large a number: '" + value + "'!\n");
+	} else if (numeric_value < 0) {
+		throw std::runtime_error("not a positive number: '" + value + "'!\n");
 	}
 	return numeric_value;
 }
 // ------------------------------------------------------------------------
 
 void	BitcoinExchange::evaluateBtcValue(const std::string& date, float value) {
+	std::map<std::string, float>::iterator it = this->_db.lower_bound(date);
+	float	db_value;
+	if (it == this->_db.end()) {
+		--it;
+		db_value = it->second;
+	} else if (it->first == date) {
+		db_value = it->second;
+	} else {
+		--it;
+		db_value = it->second;
+	}
+	std::cout << date << " => " << value << " = " << value * db_value << "\n";
 }
 
 void	BitcoinExchange::readDataBase() {
@@ -112,33 +127,34 @@ void	BitcoinExchange::readDataBase() {
 }
 
 void	BitcoinExchange::evaluateInputFile(std::string path) {
-	std::ifstream input_file(path);
+	std::ifstream input_file(path.c_str());
 	if (!input_file.is_open()) {
 		throw std::runtime_error("could not open file.\n");
 	}
-
 	std::string	line;
 	std::getline(input_file, line);
 
 	while (std::getline(input_file, line)) {
 		size_t		pipe = line.find(" | ");
 		if (pipe == std::string::npos) {
-			throw std::runtime_error("Error: bad input => " + line + "\n");
+			std::cout << "Error: bad input => '" + line + "'!\n";
+			continue;
 		}
 
 		std::string	date = line.substr(0, pipe);
 		try {
 			parseDate(date);
 		} catch (std::exception& e) {
-			std::cerr << "Error: " << e.what();
+			std::cout << "Error: " << e.what();
 			continue;
 		}
 
 		std::string	value = line.substr(pipe + 3);
 		try {
-			parseValue(value);
+			float numeric_value = parseValue(value);
+			evaluateBtcValue(date, numeric_value);
 		} catch (std::exception& e) {
-			std::cerr << "Error: " << e.what();
+			std::cout << "Error: " << e.what();
 			continue;
 		}
 	}
@@ -146,11 +162,3 @@ void	BitcoinExchange::evaluateInputFile(std::string path) {
 	input_file.close();
 
 }
-
-
-
-
-
-
-
-
