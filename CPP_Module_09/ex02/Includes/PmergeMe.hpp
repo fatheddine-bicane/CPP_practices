@@ -27,7 +27,7 @@ private:
 	std::vector<Element>
 	pairAndCompareElements(std::vector<Element> input, Element& unpaired, bool& is_odd);
 
-	void	mergeIsertSort(std::vector<Element> input);
+	std::vector<Element>	mergeIsertSort(std::vector<Element> input);
 
 public:
 	// INFO: orthodox canonical

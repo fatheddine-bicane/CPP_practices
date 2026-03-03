@@ -91,9 +91,10 @@ PmergeMe::pairAndCompareElements(std::vector<Element> input, Element& unpaired, 
 }
 
 // function should take the new array (made of the winners)
-void	PmergeMe::mergeIsertSort(std::vector<Element> input) {
+std::vector<PmergeMe::Element>	PmergeMe::mergeIsertSort(std::vector<Element> input) {
 
 	std::vector<Element>	winners;
+	std::vector<Element>	main_chain;
 	Element				unpaired;
 	bool	is_odd;
 
@@ -104,11 +105,37 @@ void	PmergeMe::mergeIsertSort(std::vector<Element> input) {
 	// WARNING: should check agains 0 if the original input is empty
 	if (winners.size() > 1) {
 		// winners = pairAndCompareElements(winners, unpaired, is_odd);
-		mergeIsertSort(winners);
+		main_chain = mergeIsertSort(winners);
+	}
+	
+	// return at the deepest recursion level since an array of size 1 is sorted!
+	if (winners.size() == 1) {
+		return winners;
 	}
 
 
+	// map the losers to the the main chaing possition
+	std::vector<Element>	pending_losers;
 
+	std::vector<Element>::iterator it = main_chain.begin();
+	std::vector<Element>::iterator end = main_chain.end();
+
+	for (int i = 0; it != end; it++, i++) {
+		Element tethered_loser = *(it->tethered_losers.end() - 1);
+		it->tethered_losers.erase(it->tethered_losers.end() - 1);
+		pending_losers.push_back(tethered_loser);
+	}
+
+
+	// append the first loser (b1) to the front of the main chain
+
+
+	// using the jacobsthal sequence group elements to push and binary inset them
+
+
+
+
+	return main_chain;
 }
 
 
