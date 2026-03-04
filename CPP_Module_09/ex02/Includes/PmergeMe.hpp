@@ -7,7 +7,7 @@ class PmergeMe {
 private:
 
 	typedef enum {
-		a, b
+		a, b, u
 	} sequence;
 
 	struct Element {

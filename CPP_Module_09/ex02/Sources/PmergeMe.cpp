@@ -58,6 +58,7 @@ PmergeMe::pairAndCompareElements(std::vector<Element> input, Element& unpaired, 
 	if (input.size() % 2 != 0) {
 		end--;
 		unpaired = *end;
+		unpaired.s = u;
 		is_odd = true;
 	} else {
 		is_odd = false;
@@ -127,12 +128,13 @@ PmergeMe::mergeIsertSort(std::vector<Element> input) {
 		Element tethered_loser = *(it->tethered_losers.end() - 1);
 		it->tethered_losers.erase(it->tethered_losers.end() - 1);
 		tethered_loser.s = b;
+		tethered_loser.index = i;
 		pending_losers.push_back(tethered_loser);
 	}
 
 	// if there is an unpaired element append it to the end of the losers
 	if (is_odd) {
-		unpaired.s = b;
+		unpaired.s = u;
 		pending_losers.push_back(unpaired);
 	}
 
@@ -188,7 +190,7 @@ PmergeMe::mergeIsertSort(std::vector<Element> input) {
 
 			// the upper painding has no previous pair so the binary search should cover the entier chain
 			if (upper_bound == main_chain.end() && is_odd) {
-				upper_bound = main_chain.end() - 1;
+				upper_bound = main_chain.end();
 			}
 
 
