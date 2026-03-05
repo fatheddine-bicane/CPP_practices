@@ -185,6 +185,10 @@ private:
 
 public:
 	// INFO: orthodox canonical
+	PmergeMe();
+	PmergeMe(const PmergeMe& other);
+	PmergeMe&	operator=(const PmergeMe& other);
+	~PmergeMe();
 
 	void	applyAlgorithm(int argc, char** argv);
 	

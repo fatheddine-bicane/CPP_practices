@@ -10,6 +10,19 @@
 #include <sys/select.h>
 #include <vector>
 
+// INFO: orthodox canonical
+// -----------------------------------------------------------------------------------------
+PmergeMe::PmergeMe() {}
+
+PmergeMe::PmergeMe(const PmergeMe& other) {}
+
+PmergeMe& PmergeMe::operator=(const PmergeMe& othero) {
+	return *this;
+}
+
+PmergeMe::~PmergeMe() {}
+
+// -----------------------------------------------------------------------------------------
 
 // INFO: pasring
 // -----------------------------------------------------------------------------------------
