@@ -14,9 +14,12 @@
 // -----------------------------------------------------------------------------------------
 PmergeMe::PmergeMe() {}
 
-PmergeMe::PmergeMe(const PmergeMe& other) {}
+PmergeMe::PmergeMe(const PmergeMe& other) {
+	(void) other;
+}
 
-PmergeMe& PmergeMe::operator=(const PmergeMe& othero) {
+PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
+	(void) other;
 	return *this;
 }
 
@@ -51,7 +54,7 @@ void	PmergeMe::parseArguments(int argc, char** argv) {
 
 		// append the value to vector and dqueue
 		Element	element;
-		element.winner_value = static_cast<int>(value);
+		element.winner_value = static_cast<unsigned int>(value);
 		this->_vSequence.push_back(element);
 		this->_dSequence.push_back(element);
 	}
