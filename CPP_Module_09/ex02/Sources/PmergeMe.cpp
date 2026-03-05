@@ -1,12 +1,13 @@
 #include "../Includes/PmergeMe.hpp"
-#include <algorithm>
 #include <climits>
 #include <cstddef>
 #include <cstdlib>
+#include <deque>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <sys/select.h>
 #include <vector>
 
 
@@ -28,7 +29,6 @@ void	PmergeMe::checkAndThrowParseError(long value, char* end, std::string argv, 
 	}
 }
 
-
 void	PmergeMe::parseArguments(int argc, char** argv) {
 	for (int i = 1; i < argc; i++) {
 		char*	end = NULL;
@@ -40,6 +40,7 @@ void	PmergeMe::parseArguments(int argc, char** argv) {
 		Element	element;
 		element.winner_value = static_cast<int>(value);
 		this->_vSequence.push_back(element);
+		this->_dSequence.push_back(element);
 	}
 }
 // -----------------------------------------------------------------------------------------
@@ -47,45 +48,6 @@ void	PmergeMe::parseArguments(int argc, char** argv) {
 
 // INFO: applying the algorithm
 // -----------------------------------------------------------------------------------------
-
-std::vector<PmergeMe::Element>
-PmergeMe::pairAndCompareElements(std::vector<Element> input, Element& unpaired, bool& is_odd) {
-	std::vector<Element>	winners;
-	std::vector<Element>::iterator	it = input.begin();
-
-	// check if the input is odd
-	std::vector<Element>::iterator	end = input.end();
-	if (input.size() % 2 != 0) {
-		end--;
-		unpaired = *end;
-		unpaired.s = u;
-		is_odd = true;
-	} else {
-		is_odd = false;
-	}
-
-	for (; it != end; it++) {
-		Element	a = *it;
-		it++;
-		Element	b = *it;
-
-		//pair and compare
-		Element tmp;
-		if (a.winner_value > b.winner_value) {
-			tmp.winner_value = a.winner_value;
-			tmp.tethered_losers = a.tethered_losers;
-			tmp.tethered_losers.push_back(b);
-		} else {
-			tmp.winner_value = b.winner_value;
-			tmp.tethered_losers = b.tethered_losers;
-			tmp.tethered_losers.push_back(a);
-		}
-
-		winners.push_back(tmp);
-	}
-	return winners;
-}
-
 
 
 void	PmergeMe::updateJacobsthalBounds(int& stop, int& start) {
@@ -97,166 +59,94 @@ void	PmergeMe::updateJacobsthalBounds(int& stop, int& start) {
     start = next_start - 1;
 }
 
-
-// function should take the new array (made of the winners)
 std::vector<PmergeMe::Element>
-PmergeMe::mergeIsertSort(std::vector<Element> input) {
-
-	std::vector<Element>	winners;
-	std::vector<Element>	main_chain;
-	Element				unpaired;
-	bool	is_odd;
-
-
-	// // return at the deepest recursion level since an array of size 1 is sorted!
+PmergeMe::VectorMergeIsertSort(std::vector<Element>& input) {
 	if (input.size() <= 1) {
 		return input;
 	}
 
-	// create pairs and form a chain of the greatest of each pair
-	winners = pairAndCompareElements(input, unpaired, is_odd);
+	std::vector<Element>	main_chain;
 
-	// // recusive call until the input array size is 1 (wich is sorted)
-	main_chain = mergeIsertSort(winners);
+	Element	unpaired;
+	bool	is_odd;
+	main_chain = pairAndCompareElements(input, unpaired, is_odd);
 
+	main_chain = VectorMergeIsertSort(main_chain);
 
-	// map the losers to the the main chaing possition
 	std::vector<Element>	pending_losers;
-	std::vector<Element>::iterator it = main_chain.begin();
-	std::vector<Element>::iterator end = main_chain.end();
-	for (int i = 0; it != end; it++, i++) {
-		Element tethered_loser = *(it->tethered_losers.end() - 1);
-		it->tethered_losers.erase(it->tethered_losers.end() - 1);
-		tethered_loser.s = b;
-		tethered_loser.index = i;
-		pending_losers.push_back(tethered_loser);
-	}
-
-	// if there is an unpaired element append it to the end of the losers
-	if (is_odd) {
-		unpaired.s = u;
-		pending_losers.push_back(unpaired);
-	}
-
-	// map the main chain element
-	for (size_t i = 0; i < main_chain.size(); i++) {
-		main_chain[i].s = a;
-		main_chain[i].index = i;
-	}
-
-
-
-
-
+	mapLosersElementsToWinners(main_chain, pending_losers, unpaired, is_odd);
 
 	// append the first loser (b1) to the front of the main chain
-	// BUG: check if there are losers (rolling back at the first recursion level there should be no losers)
 	main_chain.insert(main_chain.begin(), *pending_losers.begin());
 
-
-
-	// using the jacobsthal sequence group elements to push and binary inset them
-	int	stop = 0;
-	int start = 2;
-
-	// normilize the index
-	if (start >= static_cast<int>(pending_losers.size())) {
-		start = pending_losers.size() - 1;
-	}
-
-	for (;;) {
-		// update index
-		int	index = start;
-
-		// isert the elements from start until we hit stop
-		while (index != stop) {
-
-			// ...
-
-
-
-			// find the upper bound in the main chain
-			std::vector<Element>::iterator upper_bound = main_chain.end();
-
-			std::vector<Element>::iterator it = main_chain.begin();
-			std::vector<Element>::iterator end = main_chain.end();
-
-			for (; it != end; it++) {
-				if (it->s == a && it->index == index) {
-					upper_bound = it;
-					break;
-				}
-			}
-
-			// the upper painding has no previous pair so the binary search should cover the entier chain
-			if (upper_bound == main_chain.end() && is_odd) {
-				upper_bound = main_chain.end();
-			}
-
-
-			// binary insert pending_losers[index] in the main chain
-			//	while respecting the upper bound
-			std::vector<Element>::iterator possition;
-			possition = std::lower_bound(main_chain.begin(), upper_bound, pending_losers[index]);
-			main_chain.insert(possition, pending_losers[index]);
-
-			// ...
-
-
-
-			index--;
-		}
-
-
-		//get the next index
-		updateJacobsthalBounds(stop, start);
-
-		// exit the loop if all losers where apended
-		if (stop >= static_cast<int>(pending_losers.size() - 1)) {
-			break;
-		}
-
-		// normilize the starting index and keep going ...
-		if (start >= static_cast<int>(pending_losers.size())) {
-			start = pending_losers.size() - 1;
-		}
-	}
+	insertLosersInMainChain(main_chain, pending_losers, is_odd);
 
 	return main_chain;
 }
 
+std::deque<PmergeMe::Element>
+PmergeMe::DequeMergeInsetSort(std::deque<Element> input) {
+	if (input.size() <= 1) {
+		return input;
+	}
+
+	std::deque<Element>	main_chain;
+
+	Element	unpaired;
+	bool	is_odd;
+	main_chain = pairAndCompareElements(input, unpaired, is_odd);
+
+	main_chain = DequeMergeInsetSort(main_chain);
+
+	std::deque<Element>	pending_losers;
+	mapLosersElementsToWinners(main_chain, pending_losers, unpaired, is_odd);
+
+	// append the first loser (b1) to the front of the main chain
+	main_chain.push_front(*pending_losers.begin());
+
+	insertLosersInMainChain(main_chain, pending_losers, is_odd);
+
+	return main_chain;
+}
+
+double PmergeMe::calculateTimeSpent(bool get_diff) {
+	if (get_diff == false) {
+		gettimeofday(&this->_start, NULL);
+		return 0;
+	}
+
+	gettimeofday(&this->_end, NULL);
+
+	long	seconds = this->_end.tv_sec - this->_start.tv_sec;
+	long	useconds = this->_end.tv_usec - this->_start.tv_usec;
+
+	double	total_microseconds = (seconds * 1000000.0) + useconds;
+	return total_microseconds;
+}
+
+
+
 void	PmergeMe::applyAlgorithm(int argc, char** argv) {
-
-	// print arguments
-	std::cout << "[";
-	for (int i = 1; i < argc; i++) {
-		std::cout << argv[i];
-		if (i + 1 < argc) {
-			std::cout << ", ";
-		}
-	}
-	std::cout << "]" << std::endl;
-
-
 	parseArguments(argc, argv);
-	std::vector<Element> sorted = mergeIsertSort(this->_vSequence);
+	printArgument(false, this->_vSequence);
 
+	// vector sorting
+	calculateTimeSpent(false);
+	this->_vSequence = VectorMergeIsertSort(this->_vSequence);
+	double vector_time = calculateTimeSpent(true);
 
+	// deque sorting
+	calculateTimeSpent(false);
+	this->_dSequence = DequeMergeInsetSort(this->_dSequence);
+	double deque_time = calculateTimeSpent(true);
 
-
-
-	std::cout << "sorting ..." << std::endl;
-	std::cout << "[";
-	for (int i = 1; i < argc; i++) {
-		std::cout << sorted[i - 1].winner_value;
-		if (i + 1 < argc) {
-			std::cout << ", ";
-		}
-	}
-	std::cout << "]" << std::endl;
-
-
-
-
+	// showcase time spent sorting the input
+	printArgument(true, this->_vSequence);
+	std::cout << "Time to process a range of " << argc - 1
+			  << " elements with std::vector : "
+			  << vector_time << " us" << std::endl;
+	std::cout << "Time to process a range of " << argc - 1
+			  << " elements with std::deque : "
+			  << deque_time << " us" << std::endl;
 }
 // -----------------------------------------------------------------------------------------
